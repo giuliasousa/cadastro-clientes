@@ -66,6 +66,18 @@
                                     <mat-icon fontIcon="edit"></mat-icon>
                                     Editar
                                 </button>
+
+                                @if(!deletando) {
+                                    <button type="button" mat-button (click)="preparaDeletar(cliente.id)">
+                                        <mat-icon fontIcon="delete"></mat-icon>
+                                        Deletar
+                                    </button>
+                                } @else {
+                                    <button type="button" mat-button color="warn" (click)="deletar(cliente)">
+                                        <mat-icon fontIcon="question_mark"></mat-icon>
+                                        Confirmar
+                                    </button>
+                                }
                             </td>
                         </ng-container>
 
