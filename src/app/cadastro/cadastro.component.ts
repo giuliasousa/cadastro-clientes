@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Cliente } from './cliente';
 import { ClienteService } from '../services/cliente.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -35,7 +36,8 @@ export class CadastroComponent {
   constructor(
     private clienteService: ClienteService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private snack: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -56,9 +58,16 @@ export class CadastroComponent {
     if(!this.atualizando) {
       this.clienteService.salvar(this.cliente);
       this.cliente = Cliente.newCliente();
+      this.mostrarMensagem('Salvo com sucesso!');
     } else {
       this.clienteService.atualizar(this.cliente);
       this.router.navigate(['/consulta']);
+      this.mostrarMensagem('Atualizado com sucesso!');
     }
+  }
+
+  mostrarMensagem(mensagem: string) {
+    console.log('chamando', mensagem);
+    this.snack.open(mensagem, "Ok");
   }
 }
